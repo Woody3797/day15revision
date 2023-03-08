@@ -39,8 +39,7 @@ public class OrderController {
 
     @GetMapping("/model")
     public String getWithModel(Model model, @ModelAttribute Order order) {
-
-        System.out.printf(">>> order: %s\n", order);
+        System.out.println(">>> order: " + order);
         String item = order.getItem();
         int quantity = order.getQuantity();
         model.addAttribute("item", item);
@@ -48,17 +47,25 @@ public class OrderController {
         return "done";
     }
 
+    @GetMapping("/order.html")
+    public String getOrderHTML(Model model) {
+        Order order = new Order();
+        order.setItem("apple");
+        order.setQuantity(100);
+        model.addAttribute("order", order);
+        return "order";
+    }
+
     @PostMapping
     public String postWithMultiValueMap(Model model,
         @RequestBody MultiValueMap<String, String> form) {
-        System.out.printf(">>>> POST map: %s\n", form);
+        System.out.println(">>>> POST map: " + form);
         String item = form.getFirst("item");
         int quantity = Integer.parseInt(form.getFirst("quantity"));
         model.addAttribute("item", item);
         model.addAttribute("quantity", quantity);
         return "done";
     }
-
 
     @PostMapping("/model")
     public String postWithModel(Model model, 
@@ -69,7 +76,7 @@ public class OrderController {
         // Syntactic validation
         if (bindings.hasErrors()) {
             System.out.println(">>> has error");
-            order.setQuantity(1);
+            order.setQuantity(3);
             return "order";
         }
 
@@ -93,22 +100,10 @@ public class OrderController {
     public String postWithModel(Model model, @RequestBody String payload) {
         System.out.printf(">>> POST string: %s\n", payload);
         String item = payload;
-        int quantity = 1;
+        int quantity = 3;
         model.addAttribute("item", item);
         model.addAttribute("quantity", quantity);
         return "done";
     }
 
-    @GetMapping("/order.html")
-    public String getOrderHTML(Model model) {
-
-        Order order = new Order();
-        order.setItem("apple");
-        order.setQuantity(100);
-
-        model.addAttribute("order", order);
-
-        return "order";
-    }
-    
 }

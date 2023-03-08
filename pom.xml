@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ibf2022.ssf</groupId>
-	<artifactId>day15</artifactId>
+	<artifactId>day15revision</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>day15revision</name>
 	<description>Demo project for Spring Boot</description>
