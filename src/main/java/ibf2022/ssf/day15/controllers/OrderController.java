@@ -68,9 +68,7 @@ public class OrderController {
     }
 
     @PostMapping("/model")
-    public String postWithModel(Model model, 
-            @ModelAttribute @Valid Order order, BindingResult bindings) {
-
+    public String postWithModel(Model model, @ModelAttribute @Valid Order order, BindingResult bindings) {
         System.out.printf(">>> POST order: %s\n", order);
 
         // Syntactic validation
