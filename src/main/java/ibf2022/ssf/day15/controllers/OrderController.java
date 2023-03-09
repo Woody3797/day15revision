@@ -96,7 +96,7 @@ public class OrderController {
     @PostMapping("/string")
     public String postWithModel(Model model, @RequestBody String payload) {
         System.out.printf(">>> POST string: %s\n", payload);
-        String item = payload.split("&")[0].split("=")[1].replace("+", " ");
+        String item = payload;
         int quantity = Integer.parseInt(payload.split("&")[1].split("=")[1]);
         model.addAttribute("item", item);
         model.addAttribute("quantity", quantity);
