@@ -20,8 +20,7 @@ import jakarta.validation.Valid;
 public class OrderController {
 
     @GetMapping
-    public String getWithRequestParam(Model model,
-        @RequestParam String item, @RequestParam int quantity) {
+    public String getWithRequestParam(Model model, @RequestParam String item, @RequestParam int quantity) {
         model.addAttribute("item", item);
         model.addAttribute("quantity", quantity);
         return "done";
@@ -51,7 +50,8 @@ public class OrderController {
     public String getOrderHTML(Model model) {
         Order order = new Order();
         order.setItem("apple");
-        order.setQuantity(100);
+        order.setQuantity(11);
+        order.setDelivery("Rush");
         model.addAttribute("order", order);
         return "order";
     }
@@ -79,13 +79,12 @@ public class OrderController {
         }
 
         // Semantic validation
-        if (order.getDelivery().equals("rush") && (order.getQuantity() < 10)) {
+        if (order.getDelivery().equals("Rush") && (order.getQuantity() < 10)) {
             FieldError error = new FieldError("order", "delivery"
-                , "Cannot select rush if quantity is < 10");
+                , "Cannot select Rush if quantity is < 10");
             bindings.addError(error);
             return "order";
         }
-
         // String item = order.getItem();
         // int quantity = order.getQuantity();
         // model.addAttribute("item", item);
@@ -97,8 +96,8 @@ public class OrderController {
     @PostMapping("/string")
     public String postWithModel(Model model, @RequestBody String payload) {
         System.out.printf(">>> POST string: %s\n", payload);
-        String item = payload;
-        int quantity = 3;
+        String item = payload.split("&")[0].split("=")[1].replace("+", " ");
+        int quantity = Integer.parseInt(payload.split("&")[1].split("=")[1]);
         model.addAttribute("item", item);
         model.addAttribute("quantity", quantity);
         return "done";
