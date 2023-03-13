@@ -80,8 +80,7 @@ public class OrderController {
 
         // Semantic validation
         if (order.getDelivery().equals("Rush") && (order.getQuantity() < 10)) {
-            FieldError error = new FieldError("order", "delivery"
-                , "Cannot select Rush if quantity is < 10");
+            FieldError error = new FieldError("order", "delivery", "Cannot select Rush if quantity is < 10");
             bindings.addError(error);
             return "order";
         }
